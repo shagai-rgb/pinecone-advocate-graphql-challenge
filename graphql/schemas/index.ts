@@ -1,11 +1,36 @@
 import { gql } from "graphql-tag";
 
 export const typeDefs = gql`
+  type Todo {
+    _id: ID!
+    taskName: String!
+    isDone: Boolean!
+    priority: Int!
+    createdAt: String
+    updatedAt: String
+  }
+
   type Query {
-    helloQuery: String
+    getdoneTodos: [Todo!]
+    getTodos: [Todo!]!
+  }
+
+  input CreateTodoInputs {
+    taskName: String!
+    isDone: Boolean!
+    priority: Int!
+  }
+
+  input UpdateTodoInputs {
+    _id: ID!
+    taskName: String!
+    isDone: Boolean!
+    priority: Int!
   }
 
   type Mutation {
-    sayHello(name: String!): String
+    createTodo(input: CreateTodoInputs!): Todo!
+    updatedTodo(input: UpdateTodoInputs!): Todo!
+    deleteTodo(_id: ID!): Todo!
   }
 `;
